@@ -64,7 +64,19 @@ var switchMenuToActive = function () {
 document.addEventListener("DOMContentLoaded", function (event) {
 
 // TODO: STEP 0: Look over the code from
-// *** start ***
+document.addEventListener("DOMContentLoaded", function (event) {
+
+// On first load, show home view
+showLoading("#main-content");
+$ajaxUtils.sendGetRequest(
+  homeHtml,
+  function (responseText) {
+    document.querySelector("#main-content")
+      .innerHTML = responseText;
+  },
+  false);
+});
+
 // to
 // *** finish ***
 // below.
@@ -77,7 +89,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //
 // TODO: STEP 1: Substitute [...] below with the *value* of the function buildAndShowHomeHTML,
 // so it can be called when server responds with the categories data.
-
+var insertProperty = function (string, propName, propValue) {
+  var propToReplace = "{{" + propName + "}}";
+  string = string
+    .replace(new RegExp(propToReplace, "g"), propValue);
+  return string;
+}
 // *** start ***
 // On first load, show home view
 showLoading("#main-content");
